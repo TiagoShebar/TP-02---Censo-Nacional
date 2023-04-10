@@ -15,15 +15,12 @@ class Persona{
 
     public bool PuedeVotar(){
         const int EDAD_MAYOR = 18;
-        if(ObtenerEdad() >= EDAD_MAYOR){
-            return true;
-        }
-        return false;
+        return ObtenerEdad() >= EDAD_MAYOR;
     }
 
     public int ObtenerEdad(){
         DateTime fechaActual = DateTime.Today;
-        int edad = -(FechaNacimiento.Year - fechaActual.Year);
+        int edad = fechaActual.Year - FechaNacimiento.Year;
         if(fechaActual.Month < FechaNacimiento.Month ||  fechaActual.Day < FechaNacimiento.Day){
             edad--;
         }

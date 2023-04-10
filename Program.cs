@@ -26,8 +26,10 @@
                     modificarMailPersona();
                 break;
             }
-            Console.ReadKey();
-            Console.Clear();
+            if(menu != 5){
+                Console.ReadKey();
+                Console.Clear();
+            }
         } while (menu != 5);
 
     }
@@ -98,30 +100,21 @@
 
         static void obtenerEstadísticasCenso(){
             if(listaPersonas.Count > 0){
-                Console.WriteLine("Estadísticas del Censo: \nCantidad de Personas: " + listaPersonas.Count + "\nCantidad de Personas habilitadas para votar: " + calcularVotantes() + "\nPromedio de Edad: " + calcularPromedioEdad());
+                Console.WriteLine("Estadísticas del Censo: \nCantidad de Personas: " + listaPersonas.Count);
+                int votantes = 0; int suma = 0;
+                foreach(Persona p in listaPersonas){
+                    if(p.PuedeVotar()){
+                        votantes++;
+                    }
+                    suma += p.ObtenerEdad();
+                }
+                Console.WriteLine("Cantidad de Personas habilitadas para votar: " + votantes + "\nPromedio de Edad: " + (suma/listaPersonas.Count));
+
             }else{
                 Console.WriteLine("Aún no se ingresaron personas en la lista");
             }
         }
 
-        static int calcularVotantes(){
-            int votantes = 0;
-            foreach(Persona p in listaPersonas){
-                if(p.PuedeVotar()){
-                    votantes += 1;
-                }
-            }
-
-            return votantes;
-        }
-
-        static int calcularPromedioEdad(){
-            int suma = 0;
-            foreach(Persona p in listaPersonas){
-                suma += p.ObtenerEdad();
-            }
-            return (suma/listaPersonas.Count);
-        }
 
         static void buscarPersona(){
             int dniBusqueda = ingresarInt("Ingrese el DNI que quiere buscar: ");
